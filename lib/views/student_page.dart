@@ -49,7 +49,7 @@ class _StudentPageState extends State<StudentPage> {
           maxLines: 8,
           decoration: const InputDecoration(
               hintText:
-                  'Mỗi dòng: MSSV,Họ tên\n2100001,Nguyễn Văn A\n2100002,Trần Thị B'),
+                  'Mỗi dòng: MSSV,Họ tên\n1250080083, Phạm Long Khoa \n 1250080109, Huỳnh Đại Lục'),
         ),
         actions: [
           TextButton(
@@ -166,7 +166,7 @@ class _StudentPageState extends State<StudentPage> {
                             ),
                             Center(
                               child: Text(
-                                'Chọn ảnh từ thư viện',
+                                'Click để chọn ảnh từ thư viện',
                                 style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: 16,
