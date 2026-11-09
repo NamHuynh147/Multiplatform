@@ -46,7 +46,7 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
-
+/student_project/
 # Miscellaneous
 *.class
 *.log
