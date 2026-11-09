@@ -13,8 +13,8 @@ class SubjectController extends ChangeNotifier {
 
   /// Toạ độ các cơ sở (xấp xỉ - đổi lại theo trường của bạn)
   static const Map<String, LatLng> campuses = {
-    'Cơ sở Lê Văn Việt': LatLng(10.8456, 106.7959),
-    'Cơ sở Nhà Bè': LatLng(10.6969, 106.7405),
+    'Cơ sở Lê Văn Sỹ': LatLng(10.796432, 106.666797),
+    'Cơ sở Nhà Bè': LatLng(10.67771, 106.69232),
   };
 
   List<Subject> subjects = [];
@@ -35,7 +35,8 @@ class SubjectController extends ChangeNotifier {
   }
 
   Future<void> save(String maMon, String tenMon) async {
-    await _api.saveSubject(Subject(maMon: maMon.trim(), tenMon: tenMon.trim(), coSo: selectedCampus));
+    await _api.saveSubject(Subject(
+        maMon: maMon.trim(), tenMon: tenMon.trim(), coSo: selectedCampus));
     await load();
   }
 
@@ -53,8 +54,10 @@ class SubjectController extends ChangeNotifier {
   /// Định vị vị trí hiện tại + vẽ đường (polyline) đến cơ sở đã chọn
   Future<void> locateAndRoute() async {
     var perm = await Geolocator.checkPermission();
-    if (perm == LocationPermission.denied) perm = await Geolocator.requestPermission();
-    if (perm == LocationPermission.denied || perm == LocationPermission.deniedForever) {
+    if (perm == LocationPermission.denied)
+      perm = await Geolocator.requestPermission();
+    if (perm == LocationPermission.denied ||
+        perm == LocationPermission.deniedForever) {
       error = 'Chưa cấp quyền vị trí';
       notifyListeners();
       return;
@@ -68,9 +71,14 @@ class SubjectController extends ChangeNotifier {
       final url = 'https://router.project-osrm.org/route/v1/driving/'
           '${myPosition!.longitude},${myPosition!.latitude};${dest.longitude},${dest.latitude}'
           '?overview=full&geometries=geojson';
-      final r = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 8));
-      final coords = jsonDecode(r.body)['routes'][0]['geometry']['coordinates'] as List;
-      route = coords.map((c) => LatLng((c[1] as num).toDouble(), (c[0] as num).toDouble())).toList();
+      final r =
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 8));
+      final coords =
+          jsonDecode(r.body)['routes'][0]['geometry']['coordinates'] as List;
+      route = coords
+          .map(
+              (c) => LatLng((c[1] as num).toDouble(), (c[0] as num).toDouble()))
+          .toList();
     } catch (_) {
       route = [myPosition!, dest];
     }
